@@ -1,5 +1,7 @@
 # Random Forest – Bagging mit zufälliger Merkmalsteilmenge – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-random-forest-demo.streamlit.app/)**
+
 Drittes Stück der **Baumbasierten Linie** der "Konzepte"-Reihe für die Website "Sebastian Hanisch – Operations Research und Machine Learning", Nachfolger von [Bagging](../bagging-demo):
 anders als die Fall-Demos im Portfolio (ein Anwendungsfall, mehrere Verfahren im Vergleich) zeigt diese Demo **ein** Verfahren – **Random Forest** (Breiman 2001) – an einem wachsenden Beispiel.
 Vehikel: dieselben **Lieferungen** wie in cart-demo/bagging-demo. Der Baumkern ist aus cart-demo übernommen und um `mtry` erweitert (`rf_tree.py`); die Bootstrap-/Mittel-Logik ist wortgleich zu bagging-demo, nur um `mtry` und Permutationswichtigkeit ergänzt (`rf_algorithm.py`).
