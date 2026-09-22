@@ -66,7 +66,7 @@ def build_tree(tree, task, y_range, height=280):
     fig.add_trace(go.Scatter(x=x[~inner], y=y[~inner], mode="markers", marker=dict(size=size[~inner], color=color[~inner], colorscale=_scale(task), cmin=vmin, cmax=vmax, line=dict(color="#111111", width=1)),
                              hovertext=[f"Blatt: {value_text(task, tree.value[t])}, n={tree.n[t]}" for t in np.nonzero(~inner)[0]], hoverinfo="text", showlegend=False))
     fig.add_trace(go.Scatter(x=x[inner], y=y[inner], mode="markers", marker=dict(size=size[inner], color="#ffffff", line=dict(color="#555555", width=1)),
-                             hovertext=[f"Schnitt {tree.feature[t]}" for t in np.nonzero(inner)[0]], hoverinfo="text", showlegend=False))
+                             hovertext=[f"Split {tree.feature[t]}" for t in np.nonzero(inner)[0]], hoverinfo="text", showlegend=False))
     fig.update_xaxes(visible=False)
     fig.update_yaxes(visible=False)
     return lock_axes(fig, height, plot_bgcolor="rgba(0,0,0,0)")
@@ -125,7 +125,7 @@ def build_mtry_curve(rows, task, current_mtry, height=380):
     fig.add_trace(go.Scatter(x=m, y=[r["test"] for r in rows], mode="lines+markers", name="Testfehler", line=dict(color="#d62728")))
     fig.add_trace(go.Scatter(x=m, y=[r["oob"] for r in rows], mode="lines+markers", name="Out-of-Bag-Fehler", line=dict(color="#ff7f0e")))
     fig.add_vline(x=current_mtry, line=dict(color="#111111", dash="dot"))
-    fig.update_xaxes(title="mtry (Merkmale je Schnitt)", dtick=1)
+    fig.update_xaxes(title="mtry (Merkmale je Split)", dtick=1)
     _error_axis(fig, task)
     return lock_axes(fig, height, legend=dict(orientation="h", y=1.12))
 
@@ -133,6 +133,6 @@ def build_mtry_curve(rows, task, current_mtry, height=380):
 def build_mtry_correlation(rows, height=280):
     m = [r["mtry"] for r in rows]
     fig = go.Figure(go.Scatter(x=m, y=[r["correlation"] for r in rows], mode="lines+markers", line=dict(color="#1f77b4")))
-    fig.update_xaxes(title="mtry (Merkmale je Schnitt)", dtick=1)
+    fig.update_xaxes(title="mtry (Merkmale je Split)", dtick=1)
     fig.update_yaxes(title="Baumkorrelation", range=[0, 1.03])
     return lock_axes(fig, height, showlegend=False)

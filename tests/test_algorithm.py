@@ -41,7 +41,7 @@ def test_forest_with_mtry_none_equals_a_freshly_grown_forest_of_the_same_bootstr
         assert np.array_equal(tree.feature, ref.feature) and np.allclose(tree.threshold[tree.feature >= 0], ref.threshold[ref.feature >= 0])
 
 
-# --- mtry beschränkt die Schnittsuche wirklich ---------------------------------------------------------------------------------------------------------
+# --- mtry beschränkt die Split-Suche wirklich ---------------------------------------------------------------------------------------------------------
 
 def test_mtry_restricts_the_search_to_the_drawn_candidates():
     X, y = _continuous(400, 8, 0, "class")

@@ -53,10 +53,10 @@ def test_every_preset_renders(name):
 
 def test_the_task_switch_hides_the_criterion_and_the_label_noise():
     at = _run()
-    assert {"Schnittkriterium", "Falsche Etiketten im Training [%]"} <= _labels(at)
+    assert {"Split-Kriterium", "Falsche Etiketten im Training [%]"} <= _labels(at)
     at.session_state["task_select"] = "reg"
     at.run()
-    assert not at.exception and not {"Schnittkriterium", "Falsche Etiketten im Training [%]"} & _labels(at)
+    assert not at.exception and not {"Split-Kriterium", "Falsche Etiketten im Training [%]"} & _labels(at)
     assert any("Varianz" in c.value for c in at.sidebar.caption) and any("nur bei der Klassifikation" in c.value for c in at.sidebar.caption)
 
 

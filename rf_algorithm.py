@@ -1,4 +1,4 @@
-"""Random Forest: wie Bagging (bootstrap-demo) B volle Bäume auf Bootstrap-Stichproben, aber jeder Schnitt sieht nur `mtry` zufällig gezogene Merkmale statt aller. Das entkoppelt die Bäume auch dann, wenn ein
+"""Random Forest: wie Bagging (bootstrap-demo) B volle Bäume auf Bootstrap-Stichproben, aber jeder Split sieht nur `mtry` zufällig gezogene Merkmale statt aller. Das entkoppelt die Bäume auch dann, wenn ein
 Merkmal alle anderen dominiert (siehe bagging-demo: dort blieb die Korrelation hoch). Der Baumkern (mit `mtry`) steht in `rf_tree.py`. `mtry = alle Merkmale` verhält sich exakt wie Bagging."""
 
 from dataclasses import dataclass
