@@ -24,6 +24,7 @@ from rf_presets import (
     init_session_state_defaults,
     load_permalink_settings,
     randomize_seed,
+    seed_widget,
     sync_query_params,
 )
 from rf_visualization import (
@@ -104,14 +105,15 @@ st.caption("🔗 Die Adresszeile oben spiegelt Ihre aktuelle Konfiguration wider
 
 load_permalink_settings()
 init_session_state_defaults()
-if st.session_state["criterion_select"] not in ("gini", "entropy"):
-    st.session_state["criterion_select"] = "gini"
+if st.session_state.get(KEPT["criterion_select"], "gini") not in ("gini", "entropy"):
+    st.session_state[KEPT["criterion_select"]] = "gini"
 
 with st.sidebar:
     st.header("⚙️ Einstellungen")
     task = st.selectbox("Aufgabe", C.TASKS, key="task_select", format_func=lambda k: C.TASK_LABELS[k],
                         help="Klassifikation: gemittelte Wahrscheinlichkeit, dass die Lieferung zu spät kommt. Regression: gemittelte Dauer in Minuten.")
     if task == "class":
+        seed_widget("criterion_select")
         crit = st.selectbox("Split-Kriterium", C.CRITERIA["class"], key="criterion_select", format_func=lambda k: C.CRITERION_LABELS[k])
         st.session_state[KEPT["criterion_select"]] = crit
     else:
@@ -128,6 +130,7 @@ with st.sidebar:
                      help=f"Wie viele der {d_now} Merkmale an jedem Split überhaupt zur Wahl stehen. 1 = fast zufällig (schwach, aber entkoppelt), {d_now} = alle Merkmale = Bagging. "
                           "Auf dem Standarddatensatz liegt das gemessene Optimum zwischen 5 und 8 (Klassifikation) bzw. um 8 (Regression) - siehe Experiment.")
     if task == "class":
+        seed_widget("label_noise_slider")
         label_noise = st.slider("Falsche Etiketten im Training [%]", *bounds("label_noise_slider"), key="label_noise_slider", help="Anteil vertauschter Trainingsetiketten; der Test bleibt sauber.")
         st.session_state[KEPT["label_noise_slider"]] = label_noise
     else:
