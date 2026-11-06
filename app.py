@@ -76,6 +76,19 @@ darf nur eine zufällige Teilmenge von **mtry** Merkmalen überhaupt zur Wahl st
 Als Nebenprodukt gibt es eine zweite Wichtigkeit: **Permutationswichtigkeit** auf den Out-of-Bag-Zeilen, die - anders als die Gini-Wichtigkeit - Rauschmerkmale nicht systematisch überschätzt.
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/random-forest-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein **Random Forest** ist ein Wald aus vielen Entscheidungsbäumen. Jeder Baum lernt aus einem eigenen, zufällig gezogenen Stapel früherer Lieferungen, und der Wald mittelt ihre Urteile. Der Zusatz gegenüber diesem einfachen Mitteln: An jeder Frage darf der Baum nur unter einer zufällig gezogenen Auswahl der Merkmale die beste Frage suchen. Wie viele Merkmale gezogen werden, heißt **mtry**. Ein sehr starkes Merkmal fehlt so an manchen Stellen, die Bäume werden verschiedener, und das Mitteln hilft mehr. Ist mtry zu klein, werden die einzelnen Bäume zu schwach.
+
+Dazu zeigt die Demo die **Permutationswichtigkeit**: Mischt man die Angaben zu einem Merkmal durcheinander und das Urteil wird schlechter, war das Merkmal wichtig. Sie gibt Zufallsmerkmalen weniger Gewicht als die übliche Wichtigkeit, die Fragen nach dem Merkmal zählt.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/random-forest-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 st.caption(
     "Anders als die Fall-Demos im Portfolio, die an einem Anwendungsfall mehrere Verfahren vergleichen, zeigt diese Demo - drittes Stück der Baumbasierten Linie der \"Konzepte\"-Reihe, Nachfolger von Bagging (bagging-demo) - **ein** Verfahren an einem wachsenden Beispiel. "
     "Das Verfahren geht auf Breiman (2001) zurück; alle Lieferungen, Merkmale und Zahlen dieser Demo sind erzeugt und gemessen - keine echten Daten. Der Baumkern (`rf_tree.py`) ist aus cart-demo übernommen und um `mtry` erweitert; scikit-learn kommt nur in den Tests als Gegenprobe vor."
@@ -296,6 +309,26 @@ st.markdown(
 st.markdown("---")
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/random-forest-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind Trainingslieferungen mit Merkmalen $x_i$ und bekanntem Ergebnis $y_i$ (zu spät ja oder nein bzw. die Dauer). Gesucht ist ein Verbund von $B$ Bäumen, die auf Bootstrap-Stichproben wachsen und an jedem Knoten nur mtry zufällig gezogene Merkmale prüfen, damit ihr Mittel neue Lieferungen besser vorhersagt als ein einzelner Baum.
+
+| Symbol | Bedeutung |
+|---|---|
+| $B$, $T_b$ | Zahl der Bäume bzw. der $b$-te Baum |
+| $d$ | Zahl der Merkmale (acht echte plus einstellbar viele Rauschmerkmale) |
+| mtry, $M_t$ | Zahl der Merkmale, die an einem Knoten $t$ zur Wahl stehen, bzw. die zufällig gezogene Menge dieser Merkmale |
+| $\hat f(x)$ | Vorhersage des Walds für die Lieferung $x$: Mittel der Baumvorhersagen |
+| $\rho$, $\sigma^2$ | mittlere Korrelation zweier Bäume bzw. Varianz eines Baums |
+| $\mathrm{OOB}_b$ | Zeilen, die Baum $b$ beim Wachsen nicht gesehen hat (Out-of-Bag) |
+| $e_b$, $e_b^{(j)}$ | Fehler von Baum $b$ auf $\mathrm{OOB}_b$ ohne bzw. mit durchgemischter Spalte $j$ |
+| $\mathrm{Imp}(j)$ | Permutationswichtigkeit des Merkmals $j$ |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/random-forest-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Random Forest.** Wie Bagging: $B$ Bäume $T_1,\dots,T_B$ auf Bootstrap-Stichproben, $\hat f(x)=\frac1B\sum_b T_b(x)$. Der einzige Unterschied: an jedem Knoten $t$ mit Merkmalsmenge $\{1,\dots,d\}$ wird vor der Split-Suche eine

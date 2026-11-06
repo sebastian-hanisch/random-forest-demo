@@ -174,7 +174,7 @@ def test_permalink_parameters_are_clamped_and_unknown_choices_fall_back():
 
 
 def test_the_address_bar_mirrors_the_settings():
-    at = _run(lambda a: _apply(a, C.PRESETS["🎯 Bestes mtry"]))
+    at = _run(lambda a: _apply(a, C.PRESETS["🎯 Gut gewähltes mtry"]))
     assert str(at.query_params["mtry"]) in ("4", "['4']") and str(at.query_params["task"]) in ("class", "['class']")
 
 

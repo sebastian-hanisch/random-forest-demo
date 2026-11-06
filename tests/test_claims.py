@@ -11,7 +11,7 @@ import rf_constants as C
 import rf_evaluation as ev
 import rf_scenario as S
 
-PRESET = {"one": "🎲 mtry = 1", "rule": "📐 Faustregel (√d)", "best": "🎯 Bestes mtry", "all": "🌲🌳 mtry = alle", "reg": "📈 Regression"}
+PRESET = {"one": "🎲 mtry = 1", "rule": "📐 Faustregel (√d)", "best": "🎯 Gut gewähltes mtry", "all": "🌲🌳 mtry = alle", "reg": "📈 Regression"}
 
 
 @functools.lru_cache(maxsize=None)
